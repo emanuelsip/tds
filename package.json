@@ -1,0 +1,14 @@
+{
+  "name": "pruebas_electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "Emanuel Sipaque",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^19.0.0"
+  }
+}

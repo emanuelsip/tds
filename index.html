@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <div class="display" >
+        <div id="resultado"></div>
+        <div id="total"></div>
+    </div>
+    <div>
+        <input type="button" value="C" class="botconcalc backspace" style="width:95px">
+        <input type="button" value="AC" class="botconcalc backspace">
+        <input type="button" value="&#8634;" class="botconcalc" >
+        <input type="button" value="1" class="botconcalc" >
+        <input type="button" value="2" class="botconcalc" >
+        <input type="button" value="3" class="botconcalc" >
+        <input type="button" value="+" class="botconcalc operacion" >
+
+        <input type="button" value="4" class="botconcalc" >
+        <input type="button" value="5" class="botconcalc" >
+        <input type="button" value="6" class="botconcalc" >
+        <input type="button" value="-" class="botconcalc operacion" >
+
+        <input type="button" value="7" class="botconcalc" >
+        <input type="button" value="8" class="botconcalc" >
+        <input type="button" value="9" class="botconcalc " >
+        
+        <input type="button" value="/" class="botconcalc operacion" >
+        <input type="button" value="0" class="botconcalc" >
+        <input type="button" value="=" class="botconcalc operacion equals" id="iguala">
+        <input type="button" value="*" class="botconcalc operacion" >
+    </div>
+    <script type="text/javascript">
+        let historial = new Array(), operacion = new Array();
+        let initHistor = 0, op = 0;
+        const checkOP = /^(-?\d+)(\s*[\+\-\*\/]\s*)(-?\d+)$/;
+        const checkNum = /^(-?\d+)$/;
+        const checkOParith =  /[\+\-\*\/]/;
+        
+        let botones = document.getElementsByClassName("botconcalc");
+        var elmentoResultado = document.getElementById("resultado");
+        //  document.getElementById("iguala").addEventListener('click', (esto)=>{
+        //     evaluarOP(element.value);
+        // });
+
+
+        Array.from(botones).forEach(function(element) {
+            element.addEventListener('click', (esto)=>{
+                appendop(element.value);
+            })
+        });
+        function appendop(valor){
+            let cadena = "";
+            let content = elmentoResultado.innerHTML;
+            if(valor == 'AC')
+            {
+                cadena = '';
+                operacion = [];
+            }
+            else if(valor == 'C')
+            {
+                cadena = content.substring(content.length-1, -1);
+            }
+            else if(valor == '='){
+                evaluarOP(content);
+                cadena = content;
+            }
+            else{
+                // operacion.push(valor);
+                cadena = content + valor;
+            }
+            elmentoResultado.innerHTML = cadena;
+        }
+        function evaluarOP(opera,clase){
+            let opCad = "";
+            console.log(opera);
+            if(checkOP.test(opera)){
+                procesar();
+
+                // console.log(getOp,operadores);
+            }else if(checkNum.test(opera)){
+                document.getElementById("total").innerHTML=opera;
+            }
+            else{
+                document.getElementById("total").innerHTML="Error";
+                document.getElementById("total").style.color="red";
+            }
+            // opera.foreach((esto) =>{
+            //     console.log(esto);
+            // });
+        }
+        function procesar(){
+            let getNums = elmentoResultado.innerHTML.split(checkOParith);
+            let operadores = elmentoResultado.innerHTML.match(/[\+\-\*\/]/g);
+            if(getNums[0]==""&&operadores[0] == "-"){
+                getNums = getNums.filter((esto)=>{
+                    return esto != ""
+                });
+                getNums[0] = operadores[0]+getNums[0];
+                operadores = operadores.filter((esto)=>{
+                    return esto !='-'
+                });
+            }
+            let operat = 0;
+            getnum.forEach((currentValue, index, arr)=>{
+                if(currentValue[index+1]!==undefined){
+                    operat = operar(currentValue[index],currentValue[index+1],operadores[index]);
+                    getnum[index] = operat;
+                }
+                
+            });
+            if(){
+
+            }
+            console.log(getNums);
+        }
+        function operar(n1,n2,op){
+            switch(op){
+                case '+':
+                    return n1 + n2;
+                case '-':
+                    return n1 - n2;
+                case '*':
+                    return n1 * n2;
+                case '/':
+                    return n1 / n2;
+            }
+        }
+
+    </script>
+    <style type="text/css">
+        div{
+            width:200px;
+        }
+        
+        .display{
+            height: 50px;
+            border: 1px solid gray;
+        }
+        .botconcalc{
+            float:left;
+            width:45px;
+            height:45px;
+            margin-right: 5px;
+            margin-top:5px;
+            background-color: rgb(207, 207, 207);
+        }
+        .operacion{
+            background-color: rgb(207, 218, 188);
+        }
+        .equals{
+            width:95px;
+            background-color: rgb(255, 129, 27);
+            color: white;
+        }
+        .backspace{
+            /* width:145px; */
+            background-color:rgb(158, 0, 0);
+            color:white;
+            font-size: 20px;
+            line-height: 20px;
+        }   
+        #total{
+            float: right;
+            text-align: right;
+            font-size: 19px;
+            font-weight: bold;
+            padding-right: 10px;
+            
+        }
+        #resultado{
+            padding: 3px;
+            float: left;
+            text-align: left;
+            height: 24px;
+        }
+    </style>
+</body>
+</html>
