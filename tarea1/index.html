@@ -7,37 +7,46 @@
     <title>Calculadora</title>
 </head>
 <body>
-    <div class="display" >
-        <div id="resultado"></div>
-        <div id="total"></div>
+    <div class="calc">
+        <div class="display" >
+            <div id="resultado"></div>
+            <div id="total"></div>
+        </div>
+        <div>
+            <input type="button" value="C" class="botconcalc backspace" style="width:95px">
+            <input type="button" value="AC" class="botconcalc backspace">
+            <input type="button" value="&#8634;" class="botconcalc" >
+            <input type="button" value="1" class="botconcalc" >
+            <input type="button" value="2" class="botconcalc" >
+            <input type="button" value="3" class="botconcalc" >
+            <input type="button" value="+" class="botconcalc operacion" >
+    
+            <input type="button" value="4" class="botconcalc" >
+            <input type="button" value="5" class="botconcalc" >
+            <input type="button" value="6" class="botconcalc" >
+            <input type="button" value="-" class="botconcalc operacion" >
+    
+            <input type="button" value="7" class="botconcalc" >
+            <input type="button" value="8" class="botconcalc" >
+            <input type="button" value="9" class="botconcalc " >
+            
+            <input type="button" value="/" class="botconcalc operacion" >
+            <input type="button" value="0" class="botconcalc" >
+            <input type="button" value="=" class="botconcalc operacion equals" id="iguala">
+            <input type="button" value="*" class="botconcalc operacion" >
+        </div>
     </div>
-    <div>
-        <input type="button" value="C" class="botconcalc backspace" style="width:95px">
-        <input type="button" value="AC" class="botconcalc backspace">
-        <input type="button" value="&#8634;" class="botconcalc" >
-        <input type="button" value="1" class="botconcalc" >
-        <input type="button" value="2" class="botconcalc" >
-        <input type="button" value="3" class="botconcalc" >
-        <input type="button" value="+" class="botconcalc operacion" >
+    <div class="history">
+        <table id="historylist">
+            <tbody >
 
-        <input type="button" value="4" class="botconcalc" >
-        <input type="button" value="5" class="botconcalc" >
-        <input type="button" value="6" class="botconcalc" >
-        <input type="button" value="-" class="botconcalc operacion" >
-
-        <input type="button" value="7" class="botconcalc" >
-        <input type="button" value="8" class="botconcalc" >
-        <input type="button" value="9" class="botconcalc " >
-        
-        <input type="button" value="/" class="botconcalc operacion" >
-        <input type="button" value="0" class="botconcalc" >
-        <input type="button" value="=" class="botconcalc operacion equals" id="iguala">
-        <input type="button" value="*" class="botconcalc operacion" >
+            </tbody>
+        </table>
     </div>
     <script type="text/javascript">
         let historial = new Array(), operacion = new Array();
         let initHistor = 0, op = 0;
-        const checkOP = /^(-?\d+)(\s*[\+\-\*\/]\s*)(-?\d+)$/;
+        const checkOP = /^(\d+)(\s*[\+\-\*\/]\s*\d+)+$/;
         const checkNum = /^(-?\d+)$/;
         const checkOParith =  /[\+\-\*\/]/;
         
@@ -60,6 +69,7 @@
             {
                 cadena = '';
                 operacion = [];
+                document.getElementById("total").innerHTML = '';
             }
             else if(valor == 'C')
             {
@@ -71,13 +81,19 @@
             }
             else{
                 // operacion.push(valor);
+                if(document.getElementById("total").innerHTML != ''){
+                    document.getElementById("total").innerHTML = '';
+                    document.getElementById("resultado").innerHTML = '';
+                    content = '';
+                }
                 cadena = content + valor;
+                
             }
             elmentoResultado.innerHTML = cadena;
         }
         function evaluarOP(opera,clase){
             let opCad = "";
-            console.log(opera);
+            // console.log(opera,'aaa');
             if(checkOP.test(opera)){
                 procesar();
 
@@ -89,6 +105,7 @@
                 document.getElementById("total").innerHTML="Error";
                 document.getElementById("total").style.color="red";
             }
+            
             // opera.foreach((esto) =>{
             //     console.log(esto);
             // });
@@ -106,28 +123,38 @@
                 });
             }
             let operat = 0;
-            getnum.forEach((currentValue, index, arr)=>{
-                if(currentValue[index+1]!==undefined){
-                    operat = operar(currentValue[index],currentValue[index+1],operadores[index]);
-                    getnum[index] = operat;
+            // console.log(getNums);
+            getNums.forEach((currentValue, index, arr)=>{
+                if(arr[index+1]!=undefined){
+                    operat = operar(arr[index],arr[index+1],operadores[index]);
+                    getNums[index+1] = operat;
                 }
-                
             });
-            if(){
+            document.getElementById("total").innerHTML = getNums[getNums.length-1];
+            historial.push(elmentoResultado.innerHTML+" = "+document.getElementById("total").innerHTML)
+            hisotrial();
+            // console.log(getNums[getNums.length-1]);
+        }
+        function hisotrial(){
+            var table = document.getElementById("historylist");
 
-            }
-            console.log(getNums);
+            historial.forEach((currentValue, index, arr)=>{
+                var row = table.insertRow(0);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = currentValue;
+            });
         }
         function operar(n1,n2,op){
+            // console.log(n1,n2,op);
             switch(op){
                 case '+':
-                    return n1 + n2;
+                    return parseInt(n1) + parseInt(n2);
                 case '-':
-                    return n1 - n2;
+                    return parseInt(n1) - parseInt(n2);
                 case '*':
-                    return n1 * n2;
+                    return parseInt(n1) * parseInt(n2);
                 case '/':
-                    return n1 / n2;
+                    return parseInt(n1) / parseInt(n2);
             }
         }
 
@@ -136,7 +163,9 @@
         div{
             width:200px;
         }
-        
+        .calc,.history{
+            float:left;
+        }
         .display{
             height: 50px;
             border: 1px solid gray;
