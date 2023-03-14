@@ -57,9 +57,16 @@ let registerUsers = [];
                     continues = false;
                 }
             }
-            console.log(continues);
-            if(continues==true)
+            // console.log(continues);
+            if(continues==true){
                 window.comunicacion.registroValidacion(correo.value);
+                window.comunicacion.validacionUsuario((event,args)=>{
+                    if(args)
+                        setError(correo,'Ya existe el usuario');
+                    else
+                        alert("Usuario creado");
+                });
+            }
 
         })
         function setError(element,message){

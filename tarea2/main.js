@@ -1,4 +1,4 @@
-const {app, BrowserWindow,ipcMain} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 let ventana;
 function createWindow(){
@@ -12,10 +12,18 @@ function createWindow(){
     ventana.loadFile('index.html');
 }
 ipcMain.on('registroValidacion',(event,args)=>{
-    let mails = ['correo1@test.com',
+    let mails = ['correo@correo.com',
+                 'correo1@test.com',
                  'correo2@test.com',
                  'correo2@test.com',
                  'correo2@test.com'];
-    alert(mails);
+    console.log(mails.includes(args));
+    if(mails.includes(args) !==false){
+        ventana.webContents.send('validacionUsuario',true);
+    }else
+        ventana.webContents.send('validacionUsuario',false);
+    console.log(args);
 })
 app.whenReady().then(createWindow);
+
+

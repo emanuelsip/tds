@@ -2,10 +2,7 @@ const {ipcRenderer,contextBridge} = require('electron')
 
 
 
-let registroValidacion = {
-                            registroValidacion:(datos) => {
-                                ipcRenderer.send('registroValidacion',datos)
-                                alert(datos)
-                            }
-                        }
-contextBridge.exposeInMainWorld('comunicacion',registroValidacion );
+let functions = {registroValidacion:(datos) =>ipcRenderer.send('registroValidacion',datos),
+                 validacionUsuario:(callback) =>ipcRenderer.on('validacionUsuario',callback)
+}
+contextBridge.exposeInMainWorld('comunicacion',functions);
