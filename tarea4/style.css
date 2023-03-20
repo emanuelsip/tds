@@ -1,0 +1,10 @@
+body{
+    background-color: #12314c;
+    color:white;
+}
+.card{
+    color:gray;
+}
+.badge{
+    cursor: pointer;
+}
