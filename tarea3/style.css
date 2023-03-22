@@ -1,0 +1,51 @@
+body{
+    font-family: sans-serif;
+}
+.content{
+    background-image: url('./nubes.png');
+    width: 675px;
+    height: 200px;
+    background-position: -1px -2px;
+    padding: 8px;
+}
+h1{
+    float: right;
+    color: white;
+    width:60px;
+    text-align: center;
+    margin-right: 35px;
+    margin-top: 30px;
+    
+}
+p{
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    text-align: center;
+}
+.clima{
+    
+    display: none;
+    float: right;
+    margin-right: 18px;
+}
+.clima div{
+    width: 128px;
+    height: 131px;
+    background-image: url('./3d-weather-icon-cloudy-sunny-260nw-2268943879.png');
+    
+}
+.clima span{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+}
+.despejado{
+    background-position: -1px -2px;
+}
+.nublado{
+    background-position: -127px 8px;
+}
+.lluvioso{
+    background-position: -259px -2px;
+}
