@@ -3,13 +3,13 @@ body{
 }
 .content{
     background-image: url('./nubes.png');
-    width: 675px;
+    width: 711px;
     height: 200px;
     background-position: -1px -2px;
     padding: 8px;
 }
 h1{
-    float: right;
+    float: left;
     color: white;
     width:60px;
     text-align: center;
@@ -26,8 +26,8 @@ p{
 .clima{
     
     display: none;
-    float: right;
-    margin-right: 18px;
+    float: left;
+    margin-left: 18px;
 }
 .clima div{
     width: 128px;

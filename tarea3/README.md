@@ -2,4 +2,4 @@
 # Cesar Emanuel Sipaque
 # 22001793
 
-Formulario para crear un usuario en electro con comunicacion de ventanas, incluida api para validar si el usuario(correo) ya existe dentro de un listado de correos preestablecido.
+Esta es una api para consultar el clima, la cual muestra el clima de hoy o el clima de la fecha seleccionada en el datepicker.
