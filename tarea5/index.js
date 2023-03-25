@@ -1,4 +1,4 @@
-let filtro = {};
+let filtro = {category:'voxel'};
 const badge = document.getElementsByClassName("badge");
 const listgames = document.getElementById("listajuegos");
 const ordenarpor = document.getElementById("listajuegos");
@@ -20,20 +20,14 @@ document.getElementById('orderby').addEventListener('change',(e) => {
 });
 
 document.getElementById("guardar").addEventListener('click',(e)=>{
-    // alert('asdf');
     window.comunicacion.guardar([getFiltro(),dataResponse]);
 });
 
 document.getElementById("consultar").addEventListener('click',(e)=>{
-    // alert('asdf');
     window.comunicacion.consultar(getFiltro());
     window.comunicacion.respuestaconsulta((event,data)=>{
-        console.log(typeof data);
         rederResponse(JSON.parse(data));
-        //resp
     })
-    // get_juegos();
-    // window.comunicacion.guardar([getFiltro(),dataResponse]);
 });
 
 

@@ -26,19 +26,14 @@ async function getELementos(datas) {
         attributes: ['resultado']
       };
       const datos = await filtrosModelos.findOne(query);
-    //   datos.then((data) =>{
-        // console.log(datos.resultado);
-        return  datos.resultado
-    // }).catch(e => console.log(e))
-    //   console.log(users.map(datos => user.toJSON()));
-    // console.log(user.toJSON());
+    return  datos.resultado
     
 }
 async function setElementos(args){
     try{
         const dataSave = await filtrosModelos.create({
             filtro: args[0],
-            resultado: args[1]
+            resultado: JSON.stringify(args[1])
         });
         // console.log(dataSave.toJSON());
     } catch (error) {
@@ -49,10 +44,7 @@ ipcMain.on('guardar',(event,args)=>{
     setElementos(args);
 })
 ipcMain.on('consultar',(event,args)=>{
-    const respuesta = getELementos(args);
-    // console.log(typeof JSON.stringify(respuesta));
-    ventana.webContents.send('respuestaconsulta',JSON.stringify(respuesta));
-    // respuestaconsulta  getELementos(args);
+    getELementos(args).then(d =>ventana.webContents.send('respuestaconsulta',d));
 })
 
 app.whenReady().then(createWindow);
