@@ -1,0 +1,22 @@
+body{
+    background-color: #12314c;
+    color:white;
+}
+.card{
+    color:gray;
+}
+.badge{
+    cursor: pointer;
+}
+h6{
+    font-size: 15px;
+}
+.badge{
+
+    font-size: 12px;
+    padding: 2px 5px;
+    font-weight: normal;
+}
+label{
+    color: rgb(255, 72, 72);
+}

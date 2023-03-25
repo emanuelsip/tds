@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet">
+    <title>Api</title>
+</head>
+<body>
+    
+<div class="container-fluid">
+    <div class="row">
+        
+        <div class="col-2">
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-gray">Esta es una api que muestra los juegos freeToPlay de varias plataformas, programado en electron y utilizando el consumo de apis con fetch y promesas</p>
+                </div>
+                <div class="col-12 order">
+                    <!-- <div class="btn-group" role="group" aria-label="Basic mixed styles example"> -->
+                        <button type="button" class="btn btn-primary btn-sm" id="filtrar">Filtrar</button>
+                        <button type="button" class="btn btn-warning btn-sm" id="consultar">Consultar en db</button>
+                        <button type="button" class="btn btn-success btn-sm" id="guardar">Guardar</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="filtroclean">Limpiar Filtro</button>
+                      <!-- </div> -->
+                </div>
+                <div class="col-12">
+                    <label for="">Plataforma</label> <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="pc" onclick="checkbox(this);">
+                        <span class="form-check-label" for="inlineCheckbox1" onclick="checkbox(this);">PC</span>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="browser">
+                        <span class="form-check-label" for="inlineCheckbox2">Navegador web</span>
+                    </div>
+                </div>
+                <div class="col-12 order">
+                    <label for="">Ordenar por</label>
+                    <select class="form-select" aria-label="Default select example" id="orderby">
+                        <option value="">----</option>
+                        <option value="release-date">Fecha de salida</option>
+                        <option value="popularity">Popularidad</option>
+                        <option value="alphabetical">Alfabetico</option>
+                        <option value="relevance">Relevancia</option>
+                    </select>
+                </div>
+                <div class="col-12 tags mb-5">
+                    <label for="">Tags</label><br>
+                    <span class="badge rounded-pill text-bg-info ">mmorpg</span>
+                    <span class="badge rounded-pill text-bg-info text-white" > shooter</span>
+                    <span class="badge rounded-pill text-bg-info"> strategy</span>
+                    <span class="badge rounded-pill text-bg-info"> moba</span>
+                    <span class="badge rounded-pill text-bg-info"> racing</span>
+                        <span class="badge rounded-pill text-bg-info"> sports</span>
+                        <span class="badge rounded-pill text-bg-info"> social</span>
+                        <span class="badge rounded-pill text-bg-info"> sandbox</span>
+                        <span class="badge rounded-pill text-bg-info"> open-world</span>
+                        <span class="badge rounded-pill text-bg-info"> survival</span>
+                        <span class="badge rounded-pill text-bg-info"> pvp</span>
+                        <span class="badge rounded-pill text-bg-info"> pve</span>
+                        <span class="badge rounded-pill text-bg-info"> pixel</span>
+                        <span class="badge rounded-pill text-bg-info"> voxel</span>
+                        <span class="badge rounded-pill text-bg-info"> zombie</span>
+                        <span class="badge rounded-pill text-bg-info"> turn-based</span>
+                        <span class="badge rounded-pill text-bg-info"> first-person</span>
+                        <span class="badge rounded-pill text-bg-info"> third-Person</span>
+                        <span class="badge rounded-pill text-bg-info"> tank</span>
+                        <span class="badge rounded-pill text-bg-info"> space</span>
+                        <span class="badge rounded-pill text-bg-info"> sailing</span>
+                        <span class="badge rounded-pill text-bg-info"> side-scroller</span>
+                        <span class="badge rounded-pill text-bg-info"> superhero</span>
+                        <span class="badge rounded-pill text-bg-info"> permadeath</span>
+                        <span class="badge rounded-pill text-bg-info"> card</span>
+                        <span class="badge rounded-pill text-bg-info"> battle-royale</span>
+                        <span class="badge rounded-pill text-bg-info"> mmo</span>
+                        <span class="badge rounded-pill text-bg-info"> mmofps</span>
+                        <span class="badge rounded-pill text-bg-info"> mmotps</span>
+                        <span class="badge rounded-pill text-bg-info"> 3d</span>
+                        <span class="badge rounded-pill text-bg-info"> 2d</span>
+                        <span class="badge rounded-pill text-bg-info"> anime</span>
+                        <span class="badge rounded-pill text-bg-info"> fantasy</span>
+                        <span class="badge rounded-pill text-bg-info"> sci-fi</span>
+                        <span class="badge rounded-pill text-bg-info"> fighting</span>
+                        <span class="badge rounded-pill text-bg-info"> action-rpg</span>
+                        <span class="badge rounded-pill text-bg-info"> action</span>
+                        <span class="badge rounded-pill text-bg-info"> military</span>
+                        <span class="badge rounded-pill text-bg-info"> martial-arts</span>
+                        <span class="badge rounded-pill text-bg-info"> flight</span>
+                        <span class="badge rounded-pill text-bg-info"> low-spec</span>
+                        <span class="badge rounded-pill text-bg-info"> tower-defense</span>
+                        <span class="badge rounded-pill text-bg-info"> horror</span>
+                        <span class="badge rounded-pill text-bg-info"> mmorts </span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-10" >
+            <div class="row" id="listajuegos"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="" id="preview"frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="index.js" ></script>
+<script type="text/javascript">
+    get_juegos();
+    </script>
+</body>
+</html>

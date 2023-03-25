@@ -1,0 +1,16 @@
+{
+  "name": "pruebas_sequelize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "Emanuel Sipaque",
+  "license": "IMT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^23.2.0",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.30.0"
+  }
+}

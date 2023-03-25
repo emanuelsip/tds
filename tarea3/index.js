@@ -38,6 +38,7 @@ function evaluateDate(){
 document.getElementById("date").addEventListener("change",()=>{
     tarde.style.display="none";
     noche.style.display="none";
+    
     manana.style.display="none";
     dateactual.innerHTML = "";
     window.comunicacion.peticion(evaluateDate());
