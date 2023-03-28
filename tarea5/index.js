@@ -3,11 +3,19 @@ const badge = document.getElementsByClassName("badge");
 const listgames = document.getElementById("listajuegos");
 const ordenarpor = document.getElementById("listajuegos");
 let dataResponse = {};
-Array.from(badge).forEach((element) => {
+let indexEtiqueta = 0;
+Array.from(badge).forEach((element,index) => {
     element.addEventListener('click',(e)=>{
         var targetElement = e.target;
         // console.log(targetElement);
         setFiltro(targetElement.innerHTML.trim(),'category');
+        badge[index].classList.add("text-white");
+        badge[index].classList.add("text-bg-warning");
+        if(indexEtiqueta>0){
+            badge[indexEtiqueta].classList.remove("text-white").remove("text-bg-warning");
+            badge[indexEtiqueta].classList.remove("text-bg-warning");
+        }
+        indexEtiqueta = index;
     })
 });
 
@@ -24,10 +32,16 @@ document.getElementById("guardar").addEventListener('click',(e)=>{
 });
 
 document.getElementById("consultar").addEventListener('click',(e)=>{
+    
     window.comunicacion.consultar(getFiltro());
     window.comunicacion.respuestaconsulta((event,data)=>{
+        listgames.innerHTML = '';
         rederResponse(JSON.parse(data));
     })
+    window.comunicacion.setfecha((event,data)=>{
+        // console.log(data);
+        document.getElementById('dateAreas').innerHTML = data;
+    });
 });
 
 
@@ -39,7 +53,6 @@ function setFiltro(texto,tipo){
     filtro[tipo] = texto;
 }
 function getFiltro(){
-    
     const paramGet = new URLSearchParams();
     for (const llave in filtro) {
         paramGet.append(llave, filtro[llave]);
@@ -65,7 +78,7 @@ async function get_juegos(){
     });
 }
 function rederResponse(data){
-    console.log(data);
+    // console.log(data);
     let template =  (titulo,thumbnail,descripcion,link)=>{
         return `<div class="col-2 mb-4">
                     <div class="card"  >

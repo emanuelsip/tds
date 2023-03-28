@@ -11,14 +11,14 @@ try {
   }
 
 const filtro = connection.define('filtros', {
-    filtro: {
+  filtro: {
     type: DataTypes.STRING,
     allowNull: false
   },
   resultado: {
     type: DataTypes.TEXT,
     allowNull: false
-  }
+  },
 });
 
 module.exports = filtro;

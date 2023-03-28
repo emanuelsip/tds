@@ -2,7 +2,7 @@ const { Console, log } = require('console');
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const filtrosModelos = require('./filtrosModel');
-const { Sequelize } = require('sequelize');
+const { Sequelize,DataTypes } = require('sequelize');
 
 let ventana;
 function createWindow(){
@@ -23,10 +23,11 @@ async function getELementos(datas) {
         where: {
           filtro: datas
         },
-        attributes: ['resultado']
+        attributes: [[Sequelize.fn('DATE', Sequelize.col('createdAt')), 'createdAt'],
+                    'resultado']
       };
       const datos = await filtrosModelos.findOne(query);
-    return  datos.resultado
+    return  datos
     
 }
 async function setElementos(args){
@@ -44,7 +45,14 @@ ipcMain.on('guardar',(event,args)=>{
     setElementos(args);
 })
 ipcMain.on('consultar',(event,args)=>{
-    getELementos(args).then(d =>ventana.webContents.send('respuestaconsulta',d));
+    getELementos(args).then((d) =>{
+        // console.log(d);
+        // d = JSON.parse(d);
+        // console.log(d.createdAt,d);
+        ventana.webContents.send('respuestaconsulta',d.resultado)
+        ventana.webContents.send('setfecha',d.createdAt)
+    });
+    
 })
 
 app.whenReady().then(createWindow);
